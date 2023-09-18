@@ -1,2 +1,2 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<h2 class="h4">Welcome to Pokeland</h2>
+<p><a class="link" href="/pokemon">Check out my pokemons!</a></p>

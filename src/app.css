@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .btn {
+    @apply bg-blue-200 text-black p-2 rounded-md
+  }
+
+  .link {
+    @apply underline bg-blue-50 hover:bg-blue-200 active:bg-blue-200 visited:bg-violet-50
+  }
+
+  .h1 {
+    @apply text-4xl
+  }
+
+  .h2 {
+    @apply text-3xl
+  }
+
+  .h3 {
+    @apply text-2xl
+  }
+
+  .h4 {
+    @apply text-xl
+  }
+}
