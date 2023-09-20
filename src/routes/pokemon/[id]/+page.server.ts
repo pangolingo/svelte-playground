@@ -13,7 +13,7 @@ export async function load({ params, parent }) {
   const { session } = await parent()
 
   return {
-    pokemon: getSinglePokemon(`${API_BASE_URL}/pokemon/${params.id}`),
+    pokemon: getSinglePokemon(`${API_BASE_URL}/pokemon/${params.id}`, fetch),
     isSaved: session?.user?.sub ? isSaved(id, session?.user.sub) : false
   }
 }

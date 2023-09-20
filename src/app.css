@@ -26,4 +26,9 @@
   .h4 {
     @apply text-xl
   }
+
+  .pokegrid {
+    grid-template-columns: repeat(auto-fit, 250px);
+    @apply grid gap-2
+  }
 }

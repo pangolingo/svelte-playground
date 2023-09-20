@@ -4,12 +4,16 @@
 	import type { Pokemon } from '$lib/pokemon-api';
 
 	export let pokemon: Optional<Pick<Pokemon, 'id' | 'name' | 'sprites'>, 'sprites'>;
+	export let favorite = false;
 </script>
 
 <a
-	class="rounded-md bg-amber-200 flex flex-col p-2 aspect-[5/7] text-center"
+	class="rounded-md bg-amber-200 flex flex-col p-2 aspect-[5/7] text-center relative"
 	href="/pokemon/{pokemon.id}"
 >
+	{#if favorite}
+		<span class="uppercase absolute left-2 top-2">❤️</span>
+	{/if}
 	<span class="flex-1 flex justify-center items-center">
 		{#if pokemon.sprites}
 			<img

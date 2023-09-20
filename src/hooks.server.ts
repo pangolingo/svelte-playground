@@ -15,6 +15,8 @@ export const handle = SvelteKitAuth({
       issuer: AUTH0_DOMAIN
     }),
   ],
+  // is trustHost required? what does it mean?
+  trustHost: true,
   callbacks: {
     // add sub to the user in the session and client
     // async session({ session, token, user }: Parameters<CallbacksOptions['session']>[0] & { session: EnhancedSession }) {

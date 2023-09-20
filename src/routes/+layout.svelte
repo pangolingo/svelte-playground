@@ -1,13 +1,36 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/stores';
 	import { signIn, signOut } from '@auth/sveltekit/client';
 	import '../app.css';
+	import { onMount } from 'svelte';
+
+	console.log('layout');
+	let altSession: typeof $page.data.session;
+	onMount(async () => {
+		// workaround to get session information on a prerendered page
+		// this only works because Auth.js already sets up an API endpoint for us to use
+		if (!$page.data.session) {
+			// are we actually logged out, or just on a prerendered page
+			const result = await fetch('/auth/session');
+			const json = await result.json();
+			console.log('json', json);
+			if (json.user) {
+				altSession = json;
+			}
+		}
+	});
 </script>
 
-<header class="border-gray-800 border-b-2 mb-2">
+<header class="border-gray-800 border-b-2 mb-2 pb-2">
 	<h1 class="h1"><a href="/">Pokeland</a></h1>
+	<nav>
+		<a class="link" href="/about">About</a>
+	</nav>
 	{#if $page.data.session}
 		Logged in: {$page.data.session.user?.name}
+		<button on:click={() => signOut()} class="btn">Sign out</button>
+	{:else if altSession}
+		Logged in: {altSession.user?.name}
 		<button on:click={() => signOut()} class="btn">Sign out</button>
 	{:else}
 		Logged out

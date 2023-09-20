@@ -211,7 +211,7 @@ export async function listPokemonPage(pageNumber: number, fetchMethod: typeof fe
 
   // const pokemonUrls = pokemonList.results.map(p => p.url)
   const singlePokemons = await Promise.all(pokemonList.results.map((p) => {
-    return getSinglePokemon(p.url)
+    return getSinglePokemon(p.url, fetchMethod)
   }))
   return {
     pokemon: singlePokemons, page: {
@@ -245,7 +245,7 @@ export async function listPokemonPage(pageNumber: number, fetchMethod: typeof fe
   //   });
 }
 
-export async function getSinglePokemon(url: string): Promise<Pokemon> {
-  const response = await fetch(url)
+export async function getSinglePokemon(url: string, fetchMethod: typeof fetch = fetch): Promise<Pokemon> {
+  const response = await fetchMethod(url)
   return response.json()
 }
