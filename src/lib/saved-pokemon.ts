@@ -5,6 +5,7 @@ interface SavedPokemon {
   pokemon_name: string;
   pokemon_id: number;
   user_id: string;
+  created_at: string;
 }
 
 export async function getSavedPokemon(userId: string): Promise<Array<SavedPokemon>> {

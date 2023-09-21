@@ -4,7 +4,6 @@
 	import '../app.css';
 	import { onMount } from 'svelte';
 
-	console.log('layout');
 	let altSession: typeof $page.data.session;
 	onMount(async () => {
 		// workaround to get session information on a prerendered page
