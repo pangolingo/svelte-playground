@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { page } from '$app/stores';
 	import { signIn, signOut } from '@auth/sveltekit/client';
-	import '../app.css';
 	import { onMount } from 'svelte';
+	import '../app.css';
 
 	let altSession: typeof $page.data.session;
 	onMount(async () => {
@@ -13,7 +13,7 @@
 			const result = await fetch('/auth/session');
 			const json = await result.json();
 			console.log('json', json);
-			if (json.user) {
+			if (json?.user) {
 				altSession = json;
 			}
 		}

@@ -3,32 +3,49 @@
 @tailwind utilities;
 
 @layer components {
-  .btn {
-    @apply bg-blue-200 text-black p-2 rounded-md
-  }
+	.btn {
+		@apply bg-blue-200 text-black p-2 rounded-md;
+	}
 
-  .link {
-    @apply underline bg-blue-50 hover:bg-blue-200 active:bg-blue-200 visited:bg-violet-50
-  }
+	.link {
+		@apply underline bg-blue-50 hover:bg-blue-200 active:bg-blue-200 visited:bg-violet-50;
+	}
 
-  .h1 {
-    @apply text-4xl
-  }
+	.h1 {
+		@apply text-4xl;
+	}
 
-  .h2 {
-    @apply text-3xl
-  }
+	.h2 {
+		@apply text-3xl;
+	}
 
-  .h3 {
-    @apply text-2xl
-  }
+	.h3 {
+		@apply text-2xl;
+	}
 
-  .h4 {
-    @apply text-xl
-  }
+	.h4 {
+		@apply text-xl;
+	}
 
-  .pokegrid {
-    grid-template-columns: repeat(auto-fit, 250px);
-    @apply grid gap-2
-  }
+	.input {
+		all: revert;
+		font-family: inherit;
+		font-size: inherit;
+	}
+	.input-container--error .label,
+	.input-container--error .input-error,
+	.input-container--error legend {
+		@apply text-red-700;
+	}
+	.input-label {
+		@apply font-semibold;
+	}
+	.input-hint {
+		@apply text-sm;
+	}
+
+	.pokegrid {
+		grid-template-columns: repeat(auto-fit, 250px);
+		@apply grid gap-2;
+	}
 }

@@ -15,7 +15,7 @@
 
 	<p>If you like this site, let me know.</p>
 
-	<!-- <p><a class="btn inline-block" href="/contact">Tell me you like this site</a></p> -->
+	<p><a class="btn inline-block" href="/contact">Tell me you like this site</a></p>
 
 	<p><button class="btn" on:click={pika}>PIKA!</button></p>
 </div>
