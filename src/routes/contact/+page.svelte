@@ -2,17 +2,14 @@
 	import type { FormEventHandler } from 'svelte/elements';
 
 	// do something on the backend with the data (save in a DB)
-	// controlled input
 
 	export let form;
 	export let data;
 
-	let messageLength = form?.errors?.values.message?.length ?? 0;
-	$: messageExceedsLength = messageLength > 30;
-
-	const updateMessageLength: FormEventHandler<HTMLTextAreaElement> = (e) => {
-		messageLength = e.currentTarget.value.length;
-	};
+	export let message = '';
+	if (form?.errors?.values.message) {
+		message = form?.errors?.values.message as string;
+	}
 
 	const errorsList = (key: string): string[] => {
 		return form?.errors?.messages[key] ?? [];
@@ -129,14 +126,13 @@
 			name="message"
 			id="f-message"
 			rows="3"
-			on:change={updateMessageLength}
-			on:input={updateMessageLength}
 			aria-invalid={hasError('message')}
 			aria-describedby="f-message-error-messages"
-			required>{form?.errors?.values.message ?? ''}</textarea
-		>
-		<span class="input-hint tabular-nums" class:text-red-700={messageExceedsLength}
-			>{messageLength}/30</span
+			required
+			bind:value={message}
+		/>
+		<span class="input-hint tabular-nums" class:text-red-700={message.length > 30}
+			>{message.length}/30</span
 		>
 	</div>
 
