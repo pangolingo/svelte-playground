@@ -1,3 +1,4 @@
+import { saveMessage } from '$lib/messages';
 import { fail } from '@sveltejs/kit';
 import Joi, { type ValidationError } from 'joi';
 
@@ -66,6 +67,7 @@ export interface ErrorResponse {
 
 export const actions = {
 	default: async ({ request, locals }) => {
+		const session = await locals.getSession()
 		const formData = await request.formData();
 
 		for (const pair of formData.entries()) {
@@ -105,7 +107,13 @@ export const actions = {
 			return fail(400, { errors });
 		}
 
-		// TODO: save the message
+		await saveMessage({
+			userId: session?.user?.sub ?? null,
+			name: sanitizedFormValues.name,
+			email: sanitizedFormValues.email,
+			message: sanitizedFormValues.message,
+			colors: sanitizedFormValues.colors
+		})
 
 		return { success: true };
 	}

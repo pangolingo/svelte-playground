@@ -1,8 +1,4 @@
 <script lang="ts">
-	import type { FormEventHandler } from 'svelte/elements';
-
-	// do something on the backend with the data (save in a DB)
-
 	export let form;
 	export let data;
 
