@@ -24,6 +24,7 @@
 	<h1 class="h1"><a href="/">Pokeland</a></h1>
 	<nav>
 		<a class="link" href="/about">About</a>
+		<a class="link" href="/contact">Contact</a>
 	</nav>
 	{#if $page.data.session}
 		Logged in: {$page.data.session.user?.name}

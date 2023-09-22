@@ -1,86 +1,143 @@
 <script lang="ts">
-	import type { FormEventHandler } from "svelte/elements";
-	import type { ErrorResponse } from "./+page.server.js";
+	import type { FormEventHandler } from 'svelte/elements';
 
-// do something on the backend with the data (save in a DB)
-// style the form
-// try joi or zod instead of this manual stuff, and see if we can share the validation code or joi schema both on the frontend and backend
+	// do something on the backend with the data (save in a DB)
 
-export let form;
-  let messageLength = form?.errors?.values.message?.length ?? 0
-  $: messageExceedsLength = messageLength > 30
+	export let form;
+	let messageLength = form?.errors?.values.message?.length ?? 0;
+	$: messageExceedsLength = messageLength > 30;
 
-  const updateMessageLength: FormEventHandler<HTMLTextAreaElement> = (e) => {
-    messageLength = e.currentTarget.value.length
-  }
+	const updateMessageLength: FormEventHandler<HTMLTextAreaElement> = (e) => {
+		messageLength = e.currentTarget.value.length;
+	};
 
-  const errorsList = (key: keyof ErrorResponse['messages']): string[] => {
-    return form?.errors?.messages[key] ?? []
-  }
-  const hasError = (key: keyof ErrorResponse['messages']): boolean => {
-    return (form?.errors?.messages[key].length ?? 0) > 0
-  }
-
+	const errorsList = (key: string): string[] => {
+		return form?.errors?.messages[key] ?? [];
+	};
+	const hasError = (key: string): boolean => {
+		return (form?.errors?.messages[key] ?? []).length > 0;
+	};
 </script>
 
-<h2 class="h2">Contact me</h2>
+<h2 class="h2 mb-2">Contact me</h2>
 
-<form method="post">
-  {#if form?.errors}
-  <div class="bg-red-700 text-white">
-    <p>Oops, we couldn't save the form.</p>
-  </div>
-  {/if}
-  {#if form?.success}
-  <div class="bg-green-700 text-white">
-    <p>Thanks! We've received your message.</p>
-  </div>
-  {/if}
+<form method="post" class="space-y-4 max-w-[16rem]">
+	{#if form?.errors}
+		<div class="message message--error">
+			<p>Oops, we couldn't save the form.</p>
+		</div>
+	{/if}
+	{#if form?.success}
+		<div class="message message--success">
+			<p>Thanks! We've received your message.</p>
+		</div>
+	{/if}
 
-  <div class:input-container--error={hasError('name')}>
-    <label for="f-name" class="input-label">Name</label>
-    <input type="text" name="name" id="f-name" class="input" required value={form?.errors?.values.name ?? ''}>
-    {#each errorsList('name') ?? [] as message}
-      <p class="input-error">{message}</p>
-    {/each}
-  </div>
+	<div class="input-container">
+		<label for="f-name" class="input-label">Name</label>
+		<div id="f-name-error-messages">
+			{#each errorsList('name') ?? [] as message}
+				<p class="input-error-message">{message}</p>
+			{/each}
+		</div>
+		<input
+			type="text"
+			name="name"
+			id="f-name"
+			class="input"
+			required
+			aria-invalid={hasError('name')}
+			value={form?.errors?.values.name ?? ''}
+			aria-describedby="f-name-error-messages"
+		/>
+	</div>
 
-  <div>
-    <label for="f-email" class="input-label">Email</label>
-    <input type="email" name="email" id="f-email" class="input" required value={form?.errors?.values.email ?? ''}>
-  </div>
+	<div class="input-container">
+		<label for="f-email" class="input-label">Email</label>
+		<div id="f-email-error-messages">
+			{#each errorsList('email') ?? [] as message}
+				<p class="input-error-message">{message}</p>
+			{/each}
+		</div>
+		<input
+			type="email"
+			name="email"
+			id="f-email"
+			class="input"
+			required
+			aria-invalid={hasError('email')}
+			value={form?.errors?.values.email ?? ''}
+			aria-describedby="f-email-error-messages"
+		/>
+	</div>
 
-  <fieldset class:input-container--error={hasError('colors')}>
-    <legend class="input-label">Favorite colors</legend>
-    <div>
-      <input type="checkbox" name="colors" value="blue" id="f-colors-blue" checked={form?.errors?.values.colors?.includes('blue')} >
-      <label for="f-colors-blue">Blue</label>
-    </div>
-    <div>
-      <input type="checkbox" name="colors" value="green" id="f-colors-green"  checked={form?.errors?.values.colors?.includes('green')}>
-      <label for="f-colors-green">Green</label>
-    </div>
-    <div>
-      <input type="checkbox" name="colors" value="red" id="f-colors-red"  checked={form?.errors?.values.colors?.includes('red')}>
-      <label for="f-colors-red">Red</label>
-    </div>
-    {#each errorsList('colors') ?? [] as message}
-      <p class="input-error">{message}</p>
-    {/each}
-  </fieldset>
+	<fieldset
+		class="input-container"
+		aria-invalid={hasError('colors')}
+		aria-describedby="f-colors-error-messages"
+	>
+		<legend class="input-label">Favorite colors</legend>
+		<div id="f-colors-error-messages">
+			{#each errorsList('colors') ?? [] as message}
+				<p class="input-error-message">{message}</p>
+			{/each}
+		</div>
+		<div>
+			<input
+				type="checkbox"
+				name="colors"
+				value="blue"
+				id="f-colors-blue"
+				checked={form?.errors?.values.colors?.includes('blue')}
+			/>
+			<label for="f-colors-blue">Blue</label>
+		</div>
+		<div>
+			<input
+				type="checkbox"
+				name="colors"
+				value="green"
+				id="f-colors-green"
+				checked={form?.errors?.values.colors?.includes('green')}
+			/>
+			<label for="f-colors-green">Green</label>
+		</div>
+		<div>
+			<input
+				type="checkbox"
+				name="colors"
+				value="red"
+				id="f-colors-red"
+				checked={form?.errors?.values.colors?.includes('red')}
+			/>
+			<label for="f-colors-red">Red</label>
+		</div>
+	</fieldset>
 
-  <div class:input-container--error={hasError('message')}>
-    <label for="f-message" class="input-label">Message</label>
-    <textarea class="input" name="message" id="f-message" rows="3" on:change={updateMessageLength} on:input={updateMessageLength} required>{form?.errors?.values.message ?? ''}</textarea>
-    <span class="input-hint tabular-nums" class:text-red-700={messageExceedsLength}>{messageLength}/30</span>
-    {#each errorsList('message') ?? [] as message}
-      <p class="input-error">{message}</p>
-    {/each}
-  </div>
+	<div class="input-container">
+		<label for="f-message" class="input-label">Message</label>
+		<div id="f-message-error-messages">
+			{#each errorsList('message') ?? [] as message}
+				<p class="input-error-message">{message}</p>
+			{/each}
+		</div>
+		<textarea
+			class="input"
+			name="message"
+			id="f-message"
+			rows="3"
+			on:change={updateMessageLength}
+			on:input={updateMessageLength}
+			aria-invalid={hasError('message')}
+			aria-describedby="f-message-error-messages"
+			required>{form?.errors?.values.message ?? ''}</textarea
+		>
+		<span class="input-hint tabular-nums" class:text-red-700={messageExceedsLength}
+			>{messageLength}/30</span
+		>
+	</div>
 
-  <div>
-    <button type="submit" class="btn">Submit</button>
-  </div>
+	<div>
+		<button type="submit" class="btn">Submit</button>
+	</div>
 </form>
-
-

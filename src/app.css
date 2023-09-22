@@ -32,16 +32,40 @@
 		font-family: inherit;
 		font-size: inherit;
 	}
-	.input-container--error .label,
-	.input-container--error .input-error,
-	.input-container--error legend {
+
+	.input-container {
+		@apply flex flex-col
+	}
+
+	.input-container[aria-invalid='true'] .input-label,
+	.input-container[aria-invalid='true'] legend,
+	.input-container:has([aria-invalid='true']) .input-label,
+	.input-container:has([aria-invalid='true']) legend {
 		@apply text-red-700;
 	}
+
+	.input-error-message {
+		@apply text-sm italic text-red-700
+	}
+
 	.input-label {
 		@apply font-semibold;
 	}
+
 	.input-hint {
 		@apply text-sm;
+	}
+
+	.message {
+		@apply rounded-md bg-slate-100 font-semibold p-2
+	}
+
+	.message--error {
+		@apply bg-red-700 text-white
+	}
+
+	.message--success {
+		@apply bg-green-700 text-white
 	}
 
 	.pokegrid {

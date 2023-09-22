@@ -1,30 +1,68 @@
 import { fail } from '@sveltejs/kit';
+import Joi, { type ValidationError } from 'joi';
+
+type ErrorMessageList = Record<string, string[]>
+
+const joiErrorsToMessages = (error: ValidationError): ErrorMessageList => {
+	const messages: ErrorMessageList = {}
+	error.details.forEach(detail => {
+		if (!detail.context?.key) {
+			return;
+		}
+		if (detail.context.key in messages) {
+			messages[detail.context.key].push(detail.message)
+		} else {
+			messages[detail.context.key] = [detail.message]
+		}
+	})
+	return messages;
+}
+
+const ContactFormSchema = Joi.object({
+	// label
+	name: Joi.string().required().trim().label('Name'),
+	message: Joi.string().required().trim().max(30).label('Message'),
+	email: Joi.string().trim().required().email().label('Email'),
+	colors: Joi.array().required().min(1).unique().label('Colors').items(
+		Joi.string().valid('red', 'green', 'blue')
+	).custom((colorsValue, helpers) => {
+		if (colorsValue.includes('red') && !colorsValue.includes('green')) {
+			return helpers.message({ custom: "If you choose red, you must also choose green" });
+		}
+		if (colorsValue.includes('green') && !colorsValue.includes('red')) {
+			return helpers.message({ custom: "If you choose green, you must also choose red" });
+		}
+
+		return colorsValue;
+	})
+})
 
 export interface ErrorResponse {
-	messages: {
-		name: string[];
-		message: string[];
-		email: string[];
-		colors: string[];
-	};
+	// messages: {
+	// 	name: string[];
+	// 	message: string[];
+	// 	email: string[];
+	// 	colors: string[];
+	// };
+	messages: ErrorMessageList,
 	values: {
-		name: string | null;
-		message: string | null;
-		email: string | null;
-		colors: string[] | null;
+		name: string | File | null;
+		message: string | File | null;
+		email: string | File | null;
+		colors: Array<string | File> | null;
 	};
 }
 
-function hasErrors(errors: ErrorResponse): boolean {
-	const keys = Object.keys(errors.messages) as Array<keyof typeof errors.messages>;
-	for (const k of keys) {
-		// console.log('kkkk', k, keys, errors, errors.messages[k as keyof typeof errors.messages]);
-		if (errors.messages[k as keyof typeof errors.messages].length > 0) {
-			return true;
-		}
-	}
-	return false;
-}
+// function hasErrors(errors: ErrorResponse): boolean {
+// 	const keys = Object.keys(errors.messages) as Array<keyof typeof errors.messages>;
+// 	for (const k of keys) {
+// 		// console.log('kkkk', k, keys, errors, errors.messages[k as keyof typeof errors.messages]);
+// 		if (errors.messages[k as keyof typeof errors.messages].length > 0) {
+// 			return true;
+// 		}
+// 	}
+// 	return false;
+// }
 
 export const actions = {
 	default: async ({ request, locals }) => {
@@ -40,41 +78,30 @@ export const actions = {
 			email: formData.get('email'),
 			colors: formData.getAll('colors')
 		};
-		const errors: ErrorResponse = {
-			messages: {
-				name: [],
-				message: [],
-				email: [],
-				colors: []
-			},
-			values: formValues
-		};
 
-		// name
-		if (!formValues.name || formValues.name.length < 1) {
-			errors.messages.name.push('The name is required.');
-		}
+		const { error: validationError, value: sanitizedFormValues } = ContactFormSchema.validate(formValues, { abortEarly: false });
 
-		// colors
-		if (!formValues.colors || formValues.colors?.length < 1) {
-			errors.messages.colors.push('You must pick at least one color.');
-		}
-		if (formValues.colors?.includes('red') && !formValues.colors?.includes('green')) {
-			errors.messages.colors.push('If you choose red, you have to choose green.');
-		}
-		if (formValues.colors?.includes('green') && !formValues.colors?.includes('red')) {
-			errors.messages.colors.push('If you choose green, you have to choose red.');
-		}
+		console.log('error', JSON.stringify(validationError, undefined, 2))
+		console.log('value', sanitizedFormValues)
 
-		// message
-		if (!formValues.message || formValues.message.length < 1) {
-			errors.messages.message.push('The message is required.');
-		}
-		if (formValues.message && formValues.message.length > 30) {
-			errors.messages.message.push('The message must not be longer than 30 characters.');
-		}
+		// const errors: ErrorResponse = {
+		// 	messages: {
+		// 		name: [],
+		// 		message: [],
+		// 		email: [],
+		// 		colors: []
+		// 	},
+		// 	values: formValues
+		// };
 
-		if (hasErrors(errors)) {
+
+
+
+		if (Joi.isError(validationError)) {
+			const errors: ErrorResponse = {
+				messages: joiErrorsToMessages(validationError),
+				values: formValues
+			};
 			return fail(400, { errors });
 		}
 
