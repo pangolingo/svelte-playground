@@ -1,4 +1,4 @@
-import { saveMessage } from '$lib/messages';
+import { saveMessage } from '$lib/database/messages';
 import { fail } from '@sveltejs/kit';
 import Joi, { type ValidationError } from 'joi';
 

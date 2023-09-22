@@ -1,4 +1,4 @@
-import sql from "./db";
+import sql from ".";
 
 export interface SavedMessage {
   id: string;

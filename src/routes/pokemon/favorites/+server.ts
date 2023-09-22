@@ -1,4 +1,4 @@
-import { getSavedPokemon } from "$lib/saved-pokemon";
+import { getSavedPokemon } from "$lib/database/saved-pokemon";
 import { fail, json } from "@sveltejs/kit"
 
 export async function GET({ locals, fetch }) {

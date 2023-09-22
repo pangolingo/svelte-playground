@@ -1,4 +1,4 @@
-import { getSavedPokemon } from "$lib/saved-pokemon"
+import { getSavedPokemon } from "$lib/database/saved-pokemon"
 
 export async function load({ url, fetch, locals }) {
   const session = await locals.getSession()

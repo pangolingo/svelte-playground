@@ -1,7 +1,7 @@
-import { savePokemon, unsavePokemon } from "$lib/saved-pokemon.js";
+import { savePokemon, unsavePokemon } from "$lib/database/saved-pokemon.js";
 import { error, fail, redirect } from "@sveltejs/kit";
 import { API_BASE_URL, getSinglePokemon } from "$lib/pokemon-api";
-import { isSaved } from "$lib/saved-pokemon.js";
+import { isSaved } from "$lib/database/saved-pokemon.js";
 
 
 export async function load({ params, parent }) {

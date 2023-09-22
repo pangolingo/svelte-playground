@@ -1,4 +1,4 @@
-import sql from './db'
+import sql from '.'
 
 interface SavedPokemon {
   id: number;
