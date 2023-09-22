@@ -2,8 +2,11 @@
 	import type { FormEventHandler } from 'svelte/elements';
 
 	// do something on the backend with the data (save in a DB)
+	// controlled input
 
 	export let form;
+	export let data;
+
 	let messageLength = form?.errors?.values.message?.length ?? 0;
 	$: messageExceedsLength = messageLength > 30;
 
@@ -47,7 +50,7 @@
 			class="input"
 			required
 			aria-invalid={hasError('name')}
-			value={form?.errors?.values.name ?? ''}
+			value={form?.errors?.values.name ?? data.session?.user?.name ?? ''}
 			aria-describedby="f-name-error-messages"
 		/>
 	</div>
@@ -66,7 +69,7 @@
 			class="input"
 			required
 			aria-invalid={hasError('email')}
-			value={form?.errors?.values.email ?? ''}
+			value={form?.errors?.values.email ?? data?.session?.user?.email ?? ''}
 			aria-describedby="f-email-error-messages"
 		/>
 	</div>
