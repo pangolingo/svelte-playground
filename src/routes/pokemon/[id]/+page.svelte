@@ -1,6 +1,5 @@
 <script lang="ts">
-	import type { Page } from '@sveltejs/kit';
-	import type { ActionData, PageData, RouteParams } from './$types';
+	import type { ActionData, PageData } from './$types';
 
 	export let data: PageData;
 	export let form: ActionData;
@@ -17,14 +16,10 @@
 		<button class="btn" type="submit">Save pokemon</button>
 	{/if}
 	{#if form?.success}
-		<!-- this message is ephemeral; it exists because the page was rendered in
-		   response to a form submission. it will vanish if the user reloads -->
 		{#if data.isSaved}<p>Saved!</p>{/if}
 		{#if !data.isSaved}<p>Unsaved!</p>{/if}
 	{/if}
 	{#if form?.unauthorized}
-		<!-- this message is ephemeral; it exists because the page was rendered in
-		   response to a form submission. it will vanish if the user reloads -->
 		<p>Please log in to save this pokemon.</p>
 	{/if}
 </form>

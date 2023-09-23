@@ -12,7 +12,6 @@
 			// are we actually logged out, or just on a prerendered page
 			const result = await fetch('/auth/session');
 			const json = await result.json();
-			console.log('json', json);
 			if (json?.user) {
 				altSession = json;
 			}

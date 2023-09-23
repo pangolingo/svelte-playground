@@ -34,7 +34,7 @@
 	}
 
 	.input-container {
-		@apply flex flex-col
+		@apply flex flex-col;
 	}
 
 	.input-container[aria-invalid='true'] .input-label,
@@ -45,7 +45,7 @@
 	}
 
 	.input-error-message {
-		@apply text-sm italic text-red-700
+		@apply text-sm italic text-red-700;
 	}
 
 	.input-label {
@@ -57,15 +57,15 @@
 	}
 
 	.message {
-		@apply rounded-md bg-slate-100 font-semibold p-2
+		@apply rounded-md bg-slate-100 font-semibold p-2;
 	}
 
 	.message--error {
-		@apply bg-red-700 text-white
+		@apply bg-red-700 text-white;
 	}
 
 	.message--success {
-		@apply bg-green-700 text-white
+		@apply bg-green-700 text-white;
 	}
 
 	.pokegrid {

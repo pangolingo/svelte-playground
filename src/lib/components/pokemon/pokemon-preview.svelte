@@ -16,12 +16,14 @@
 	{/if}
 	<span class="flex-1 flex justify-center items-center">
 		{#if pokemon.sprites}
+			<!-- eslint-disable svelte/no-dupe-style-properties -->
 			<img
 				src={pokemon.sprites.front_default}
 				alt=""
 				class="w-full"
-				style="image-rendering: pixelated;image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;"
+				style="image-rendering: pixelated; image-rendering: -moz-crisp-edges; image-rendering: crisp-edges;"
 			/>
+			<!-- eslint-enable svelte/no-dupe-style-properties -->
 		{/if}
 	</span>
 	<h3 class="h3 uppercase pb-4">

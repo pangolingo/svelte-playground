@@ -44,7 +44,7 @@
 			required
 			aria-invalid={hasError('name')}
 			value={form?.errors?.values.name ?? data.session?.user?.name ?? ''}
-			aria-describedby="f-name-error-messages"
+			aria-errormessage="f-name-error-messages"
 		/>
 	</div>
 
@@ -63,15 +63,11 @@
 			required
 			aria-invalid={hasError('email')}
 			value={form?.errors?.values.email ?? data?.session?.user?.email ?? ''}
-			aria-describedby="f-email-error-messages"
+			aria-errormessage="f-email-error-messages"
 		/>
 	</div>
 
-	<fieldset
-		class="input-container"
-		aria-invalid={hasError('colors')}
-		aria-describedby="f-colors-error-messages"
-	>
+	<fieldset class="input-container">
 		<legend class="input-label">Favorite colors</legend>
 		<div id="f-colors-error-messages">
 			{#each errorsList('colors') ?? [] as message}
@@ -85,6 +81,8 @@
 				value="blue"
 				id="f-colors-blue"
 				checked={form?.errors?.values.colors?.includes('blue')}
+				aria-invalid={hasError('colors')}
+				aria-errormessage="f-colors-error-messages"
 			/>
 			<label for="f-colors-blue">Blue</label>
 		</div>
@@ -95,6 +93,8 @@
 				value="green"
 				id="f-colors-green"
 				checked={form?.errors?.values.colors?.includes('green')}
+				aria-invalid={hasError('colors')}
+				aria-errormessage="f-colors-error-messages"
 			/>
 			<label for="f-colors-green">Green</label>
 		</div>
@@ -105,6 +105,8 @@
 				value="red"
 				id="f-colors-red"
 				checked={form?.errors?.values.colors?.includes('red')}
+				aria-invalid={hasError('colors')}
+				aria-errormessage="f-colors-error-messages"
 			/>
 			<label for="f-colors-red">Red</label>
 		</div>
@@ -123,7 +125,7 @@
 			id="f-message"
 			rows="3"
 			aria-invalid={hasError('message')}
-			aria-describedby="f-message-error-messages"
+			aria-errormessage="f-message-error-messages"
 			required
 			bind:value={message}
 		/>

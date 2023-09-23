@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { PageData } from './$types';
 	import { page } from '$app/stores';
-	import { getPageNumberFromSearchParams } from '$lib/url-params';
+	import { getPageNumberFromSearchParams } from '$lib/helpers/pagination';
 	import PokemonPreview from '$lib/components/pokemon/pokemon-preview.svelte';
 
 	export let data: PageData;
