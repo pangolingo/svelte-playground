@@ -71,47 +71,59 @@
 	</div>
 
 	<fieldset class="input-container">
-		<legend class="input-label">Favorite colors</legend>
-		<div id="f-colors-error-messages">
-			{#each errorsList('colors', form) ?? [] as message}
+		<legend class="input-label">Who's your favorite starter pokemon?</legend>
+		<div id="f-starters-error-messages">
+			{#each errorsList('starters', form) ?? [] as message}
 				<p class="input-error-message">{message}</p>
 			{/each}
 		</div>
 		<div>
 			<input
 				type="checkbox"
-				name="colors"
-				value="blue"
-				id="f-colors-blue"
-				checked={form?.errors?.values.colors?.includes('blue')}
-				aria-invalid={hasError('colors', form)}
-				aria-errormessage="f-colors-error-messages"
+				name="starters"
+				value="charmander"
+				id="f-starters-charmander"
+				checked={form?.errors?.values.starters?.includes('charmander')}
+				aria-invalid={hasError('starters', form)}
+				aria-errormessage="f-starters-error-messages"
 			/>
-			<label for="f-colors-blue">Blue</label>
+			<label for="f-starters-charmander">Charmander</label>
 		</div>
 		<div>
 			<input
 				type="checkbox"
-				name="colors"
-				value="green"
-				id="f-colors-green"
-				checked={form?.errors?.values.colors?.includes('green')}
-				aria-invalid={hasError('colors', form)}
-				aria-errormessage="f-colors-error-messages"
+				name="starters"
+				value="squirtle"
+				id="f-starters-squirtle"
+				checked={form?.errors?.values.starters?.includes('squirtle')}
+				aria-invalid={hasError('starters', form)}
+				aria-errormessage="f-starters-error-messages"
 			/>
-			<label for="f-colors-green">Green</label>
+			<label for="f-starters-squirtle">Squirtle</label>
 		</div>
 		<div>
 			<input
 				type="checkbox"
-				name="colors"
-				value="red"
-				id="f-colors-red"
-				checked={form?.errors?.values.colors?.includes('red')}
-				aria-invalid={hasError('colors', form)}
-				aria-errormessage="f-colors-error-messages"
+				name="starters"
+				value="bulbasaur"
+				id="f-starters-bulbasaur"
+				checked={form?.errors?.values.starters?.includes('bulbasaur')}
+				aria-invalid={hasError('starters', form)}
+				aria-errormessage="f-starters-error-messages"
 			/>
-			<label for="f-colors-red">Red</label>
+			<label for="f-starters-bulbasaur">Bulbasaur</label>
+		</div>
+		<div>
+			<input
+				type="checkbox"
+				name="starters"
+				value="pikachu"
+				id="f-starters-pikachu"
+				checked={form?.errors?.values.starters?.includes('pikachu')}
+				aria-invalid={hasError('starters', form)}
+				aria-errormessage="f-starters-error-messages"
+			/>
+			<label for="f-starters-pikachu">Pikachu</label>
 		</div>
 	</fieldset>
 
