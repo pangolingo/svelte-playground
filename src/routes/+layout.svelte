@@ -17,7 +17,20 @@
 			}
 		}
 	});
+
+	// we allow null but not undefined - you must declare a page title
+	if ($page.data.pageMeta?.pageTitle === undefined) {
+		throw new Error('Every page must declare a pageTitle');
+	}
 </script>
+
+<svelte:head>
+	<title
+		>{$page.data.pageMeta.pageTitle
+			? `${$page.data.pageMeta.pageTitle} - Pokeland`
+			: 'Pokeland'}</title
+	>
+</svelte:head>
 
 <header class="border-gray-800 border-b-2 mb-2 pb-2">
 	<h1 class="h1"><a href="/">Pokeland</a></h1>
