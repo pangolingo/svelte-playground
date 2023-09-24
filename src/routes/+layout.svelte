@@ -35,6 +35,7 @@
 <header class="border-gray-800 border-b-2 mb-2 pb-2">
 	<h1 class="h1"><a href="/">Pokeland</a></h1>
 	<nav>
+		<a class="link" href="/pokemon">Pokemon</a>
 		<a class="link" href="/about">About</a>
 		<a class="link" href="/contact">Contact</a>
 	</nav>
