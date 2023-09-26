@@ -1,4 +1,4 @@
-import type { PlaywrightTestConfig } from '@playwright/test';
+import { devices, type PlaywrightTestConfig } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {
 	webServer: {
@@ -9,7 +9,14 @@ const config: PlaywrightTestConfig = {
 	testMatch: /(.+\.)?(test|spec)\.[jt]s/,
 	use: {
 		screenshot: 'only-on-failure'
-	}
+	},
+	projects: [
+		{ name: 'setup', testMatch: /.*\.setup\.ts/ },
+		{
+			name: 'all tests',
+			dependencies: ['setup']
+		}
+	]
 };
 
 export default config;
