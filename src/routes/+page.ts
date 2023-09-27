@@ -1,6 +1,6 @@
 export function load({ data }) {
-	return {
-		...data,
-		pageMeta: { pageTitle: null }
-	};
+  return {
+    ...data,
+    pageMeta: { pageTitle: null }
+  };
 }
