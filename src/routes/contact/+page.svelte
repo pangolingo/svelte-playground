@@ -1,11 +1,16 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import type { ActionData } from './$types';
+	import type { ActionData, Snapshot } from './$types';
 
 	export let form;
 	export let data;
+	let submitting = false;
 
-	$: message = '';
+	let name = form?.errors?.values.name as (string | null | undefined) ?? (data.session?.user?.name ||  '')
+	let email = form?.errors?.values.email as (string | null | undefined) ?? (data.session?.user?.email ||  '')
+	let message = form?.errors?.values.message as (string | null | undefined) ?? ''
+	let starters: string[] = form?.errors?.values.starters as (string[] | null | undefined) ?? []
+
 	if (form?.errors?.values.message) {
 		message = form?.errors?.values.message as string;
 	}
@@ -16,11 +21,34 @@
 	const hasError = (key: string, form: ActionData | null): boolean => {
 		return (form?.errors?.messages[key] ?? []).length > 0;
 	};
+
+	export const snapshot: Snapshot<{name: string, email: string, message: string, starters: string[]}> = {
+		capture: () => {
+			return {
+				name,
+				email,
+				message,
+				starters,
+			}
+		},
+		restore: (snapshotValue) => {
+			name ||= snapshotValue?.name
+			email ||= snapshotValue?.email
+			message ||= snapshotValue?.message
+			starters = starters.length > 0 ? starters : snapshotValue?.starters
+		}
+	};
 </script>
 
 <h2 class="h2 mb-2">Contact me</h2>
 
-<form method="post" class="space-y-4 max-w-[16rem]" use:enhance>
+<form method="post" class="space-y-4 max-w-[16rem]" use:enhance={() => {
+	submitting = true;
+
+	return ({update}) => {
+		update().then(() => submitting = false)
+	}
+}}>
 	{#if form?.errors}
 		<div class="message message--error">
 			<p>Oops, we couldn't save the form.</p>
@@ -46,7 +74,7 @@
 			class="input"
 			required
 			aria-invalid={hasError('name', form)}
-			value={form?.errors?.values.name ?? data.session?.user?.name ?? ''}
+			bind:value={name}
 			aria-errormessage="f-name-error-messages"
 		/>
 	</div>
@@ -65,7 +93,7 @@
 			class="input"
 			required
 			aria-invalid={hasError('email', form)}
-			value={form?.errors?.values.email ?? data?.session?.user?.email ?? ''}
+			bind:value={email}
 			aria-errormessage="f-email-error-messages"
 		/>
 	</div>
@@ -82,8 +110,8 @@
 				type="checkbox"
 				name="starters"
 				value="charmander"
+				bind:group={starters}
 				id="f-starters-charmander"
-				checked={form?.errors?.values.starters?.includes('charmander')}
 				aria-invalid={hasError('starters', form)}
 				aria-errormessage="f-starters-error-messages"
 			/>
@@ -94,8 +122,8 @@
 				type="checkbox"
 				name="starters"
 				value="squirtle"
+				bind:group={starters}
 				id="f-starters-squirtle"
-				checked={form?.errors?.values.starters?.includes('squirtle')}
 				aria-invalid={hasError('starters', form)}
 				aria-errormessage="f-starters-error-messages"
 			/>
@@ -106,8 +134,8 @@
 				type="checkbox"
 				name="starters"
 				value="bulbasaur"
+				bind:group={starters}
 				id="f-starters-bulbasaur"
-				checked={form?.errors?.values.starters?.includes('bulbasaur')}
 				aria-invalid={hasError('starters', form)}
 				aria-errormessage="f-starters-error-messages"
 			/>
@@ -118,8 +146,8 @@
 				type="checkbox"
 				name="starters"
 				value="pikachu"
+				bind:group={starters}
 				id="f-starters-pikachu"
-				checked={form?.errors?.values.starters?.includes('pikachu')}
 				aria-invalid={hasError('starters', form)}
 				aria-errormessage="f-starters-error-messages"
 			/>
@@ -150,6 +178,6 @@
 	</div>
 
 	<div>
-		<button type="submit" class="btn">Submit</button>
+		<button type="submit" class="btn" disabled={submitting}>Submit</button>
 	</div>
 </form>
