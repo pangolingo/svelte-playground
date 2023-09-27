@@ -20,13 +20,13 @@
 
 	// we allow null but not undefined - you must declare a page title
 	if ($page.data.pageMeta?.pageTitle === undefined) {
-		throw new Error('Every page must declare a pageTitle');
+		console.warn('Every page must declare a pageTitle');
 	}
 </script>
 
 <svelte:head>
 	<title
-		>{$page.data.pageMeta.pageTitle
+		>{$page.data.pageMeta?.pageTitle
 			? `${$page.data.pageMeta.pageTitle} - Pokeland`
 			: 'Pokeland'}</title
 	>

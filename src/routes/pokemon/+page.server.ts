@@ -5,7 +5,9 @@ export async function load({ locals }) {
 
 	if (!session?.user) {
 		return {
-			favoritePokemon: []
+			streaming: {
+				favoritePokemon: Promise.resolve([])
+			}
 		};
 	}
 
@@ -14,6 +16,8 @@ export async function load({ locals }) {
 	}
 
 	return {
-		favoritePokemon: getSavedPokemon(session.user.sub)
+		streaming: {
+			favoritePokemon: getSavedPokemon(session.user.sub)
+		}
 	};
 }
