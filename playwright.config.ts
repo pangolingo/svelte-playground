@@ -1,4 +1,4 @@
-import { devices, type PlaywrightTestConfig } from '@playwright/test';
+import { type PlaywrightTestConfig } from '@playwright/test';
 
 const config: PlaywrightTestConfig = {
   webServer: {
