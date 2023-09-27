@@ -191,3 +191,11 @@ export async function getSinglePokemon(
 	const response = await fetchMethod(url);
 	return response.json();
 }
+
+export async function getSinglePokemonById(
+	id: number,
+	fetchMethod: typeof fetch = fetch
+): Promise<Pokemon> {
+	const response = await fetchMethod(`${API_BASE_URL}/pokemon/${id}`);
+	return response.json();
+}
