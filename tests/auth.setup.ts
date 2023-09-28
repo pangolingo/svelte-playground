@@ -1,5 +1,5 @@
+import { expect, test as setup } from '@playwright/test';
 import 'dotenv/config';
-import { test as setup, expect } from '@playwright/test';
 const { TEST_USER_EMAIL, TEST_USER_PASSWORD } = process.env;
 
 if (!TEST_USER_EMAIL || !TEST_USER_PASSWORD) {
