@@ -1,6 +1,6 @@
 export function load({ data }) {
-	return {
-		...data,
-		pageMeta: { pageTitle: data.pokemon.name.toUpperCase() }
-	};
+  return {
+    ...data,
+    pageMeta: { pageTitle: data.pokemon.name.toUpperCase() }
+  };
 }
