@@ -8,7 +8,7 @@
 </script>
 
 <div class="grid grid-cols-2 max-w-2xl gap-4">
-  <PokemonPreview pokemon={data.pokemon} favorite={data.isSaved} />
+  <PokemonPreview pokemon={data.pokemon} favorite={data.isSaved} link={false} --view-transition-name={`pokemon-card-${data.pokemon.id}`} />
   <div class="flex flex-col">
     <section class="flex-1">
       <h3 class="h3 mt-2">Abilities</h3>
