@@ -24,11 +24,11 @@
     console.warn('Every page must declare a pageTitle');
   }
   $: pageTitle = $page.data.pageMeta?.pageTitle
-      ? `${$page.data.pageMeta.pageTitle} - Pokeland`
-      : 'Pokeland'
+    ? `${$page.data.pageMeta.pageTitle} - Pokeland`
+    : 'Pokeland';
 
   onNavigate((navigation) => {
-    if (!document.startViewTransition){ 
+    if (!document.startViewTransition) {
       return;
     }
 
@@ -40,12 +40,6 @@
     });
   });
 </script>
-
-<style>
-  header {
-    view-transition-name: header;
-  }
-</style>
 
 <svelte:head>
   <title>{pageTitle}</title>
@@ -77,3 +71,9 @@
 </header>
 
 <slot />
+
+<style>
+  header {
+    view-transition-name: header;
+  }
+</style>

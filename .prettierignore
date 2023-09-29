@@ -11,3 +11,9 @@ node_modules
 pnpm-lock.yaml
 package-lock.json
 yarn.lock
+
+# vercel build
+.vercel/
+
+# playwright
+playwright/

@@ -8,18 +8,8 @@
   export let link = true;
 </script>
 
-<style>
-  img {
-    image-rendering: pixelated; 
-    image-rendering: -moz-crisp-edges;
-    image-rendering: crisp-edges;
-  }
-  .pokecard {
-    view-transition-name: var(--view-transition-name, pokemon-card);
-  }
-</style>
-
-<svelte:element this={link ? 'a' : 'section'}
+<svelte:element
+  this={link ? 'a' : 'section'}
   class="rounded-md bg-amber-200 flex flex-col p-2 aspect-[5/7] text-center relative pokecard"
   href="/pokemon/{pokemon.id}"
 >
@@ -28,11 +18,7 @@
   {/if}
   <span class="flex-1 flex justify-center items-center">
     {#if pokemon.sprites}
-      <img
-        src={pokemon.sprites.front_default}
-        alt=""
-        class="w-full"
-      />
+      <img src={pokemon.sprites.front_default} alt="" class="w-full" />
     {/if}
   </span>
   <h3 class="h3 uppercase pb-4">
@@ -40,3 +26,14 @@
     {pokemon.name}
   </h3>
 </svelte:element>
+
+<style>
+  img {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+  }
+  .pokecard {
+    view-transition-name: var(--view-transition-name, pokemon-card);
+  }
+</style>
