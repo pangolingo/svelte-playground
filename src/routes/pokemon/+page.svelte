@@ -32,7 +32,11 @@
   <ul class="pokegrid">
     {#each value.pokemon as pokemon (pokemon.id)}
       <li>
-        <PokemonPreview {pokemon} favorite={favoritePokemonIds.includes(pokemon.id)} />
+        <PokemonPreview
+          {pokemon}
+          favorite={favoritePokemonIds.includes(pokemon.id)}
+          --view-transition-name={`pokemon-card-${pokemon.id}`}
+        />
       </li>
     {/each}
   </ul>

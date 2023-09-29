@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { onNavigate } from '$app/navigation';
   import { page } from '$app/stores';
   import { signIn, signOut } from '@auth/sveltekit/client';
   import { onMount } from 'svelte';
@@ -22,14 +23,26 @@
   if ($page.data.pageMeta?.pageTitle === undefined) {
     console.warn('Every page must declare a pageTitle');
   }
+  $: pageTitle = $page.data.pageMeta?.pageTitle
+    ? `${$page.data.pageMeta.pageTitle} - Pokeland`
+    : 'Pokeland';
+
+  onNavigate((navigation) => {
+    if (!document.startViewTransition) {
+      return;
+    }
+
+    return new Promise((resolve) => {
+      document.startViewTransition(async () => {
+        resolve();
+        await navigation.complete;
+      });
+    });
+  });
 </script>
 
 <svelte:head>
-  <title
-    >{$page.data.pageMeta?.pageTitle
-      ? `${$page.data.pageMeta.pageTitle} - Pokeland`
-      : 'Pokeland'}</title
-  >
+  <title>{pageTitle}</title>
 </svelte:head>
 
 <header class="border-gray-800 border-b-2 mb-2 pb-2">
@@ -58,3 +71,9 @@
 </header>
 
 <slot />
+
+<style>
+  header {
+    view-transition-name: header;
+  }
+</style>
