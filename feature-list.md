@@ -1,0 +1,21 @@
+# Features in this app
+
+- pages with page titles:
+  - home
+  - about
+  - contact
+  - poke list
+  - poke details
+- fav/unfav pokemon, with status shown
+- list of fav pokemon on homepage
+- sign in/out with Auth0
+- poke list pagination
+- view transitions - pokemon cards animate between pages
+- pika alert dialog on about page
+- contact form, with validation, error, success, loading states
+- form snapshots (saving entered data when you leave and return)
+- e2e + unit tests
+- linting
+- api route for /pokemon/favorites
+- static generated about page with some JS to update the auth state
+- tailwind styles
