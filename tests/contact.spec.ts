@@ -13,6 +13,27 @@ test('successfully submitting the contact form', async ({ page }) => {
   await expect(page.getByText("Thanks! We've received your message.")).toBeVisible();
 });
 
+test('filling out fields, then leaving and pressing back will keep the fields populated', async ({
+  page
+}) => {
+  await page.goto('/contact');
+
+  await page.getByLabel('Name').fill('Dave');
+  await page.getByLabel('Email').fill('iversondave@thoughtbot.com');
+  await page.getByLabel('Charmander').check();
+  await page.getByLabel('Message').fill('Hello!');
+
+  // leave
+  await page.getByRole('link', { name: 'About' }).click();
+  // return
+  await page.goBack();
+
+  await expect(page.getByLabel('Name')).toHaveValue('Dave');
+  await expect(page.getByLabel('Email')).toHaveValue('iversondave@thoughtbot.com');
+  await expect(page.getByLabel('Charmander')).toBeChecked();
+  await expect(page.getByLabel('Message')).toHaveValue('Hello!');
+});
+
 test('forgetting to select a favorite starter pokemon', async ({ page }) => {
   await page.goto('/');
   await page.getByRole('link', { name: 'Contact' }).click();
