@@ -71,7 +71,9 @@
   {/if}
 </header>
 
-<slot />
+<main>
+  <slot />
+</main>
 
 <footer class="border-gray-800 border-t-2 mt-8 pt-2">
   <small
