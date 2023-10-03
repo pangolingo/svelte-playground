@@ -29,7 +29,7 @@
 </figure>
 
 {#if data.session?.user}
-  <h2 class="h2 mt-4">My favorite pokemons</h2>
+  <h2 class="h2 mt-4 mb-2">My favorite pokemons</h2>
 
   {#await data.streaming.favoritePokemon}
     <ul class="pokegrid">

@@ -7,7 +7,7 @@
   export let form: ActionData;
 </script>
 
-<div class="grid grid-cols-2 max-w-2xl gap-4">
+<div class="grid min-[420px]:grid-cols-2 max-w-2xl gap-4">
   <PokemonPreview
     pokemon={data.pokemon}
     favorite={data.isSaved}
@@ -15,7 +15,7 @@
     --view-transition-name={`pokemon-card-${data.pokemon.id}`}
   />
   <div class="flex flex-col">
-    <section class="flex-1">
+    <section class="flex-1 mb-2">
       <h3 class="h3 mt-2">Abilities</h3>
       <ul>
         {#each data.pokemon.abilities as ability}
