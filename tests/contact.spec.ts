@@ -1,4 +1,11 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+test('should not have any automatically detectable accessibility issues', async ({ page }) => {
+  await page.goto('/contact');
+  const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
 
 test('successfully submitting the contact form', async ({ page }) => {
   await page.goto('/');
@@ -25,6 +32,7 @@ test('filling out fields, then leaving and pressing back will keep the fields po
 
   // leave
   await page.getByRole('link', { name: 'About' }).click();
+  await expect(page.getByRole('heading', { name: 'About Pokeland' })).toBeVisible();
   // return
   await page.goBack();
 

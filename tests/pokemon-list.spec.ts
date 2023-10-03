@@ -1,4 +1,11 @@
 import { test, expect } from '@playwright/test';
+import AxeBuilder from '@axe-core/playwright';
+
+test('should not have any automatically detectable accessibility issues', async ({ page }) => {
+  await page.goto('/pokemon');
+  const accessibilityScanResults = await new AxeBuilder({ page }).analyze();
+  expect(accessibilityScanResults.violations).toEqual([]);
+});
 
 test('the pokemon page lists pokemon', async ({ page }) => {
   await page.goto('/');
