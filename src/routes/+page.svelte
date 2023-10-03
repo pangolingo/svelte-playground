@@ -2,8 +2,7 @@
   import PokemonPreview from '$lib/components/pokemon/PokemonPreview.svelte';
   import PokemonPreviewSkeleton from '$lib/components/pokemon/PokemonPreviewSkeleton.svelte';
   import type { PageData } from './$types';
-  // @ts-ignore
-  import pokeImage from '$lib/assets/pokemon-michael-rivera-unsplash.jpg?w=400&format=webp&quality=75';
+  import pokeImage from '$lib/assets/pokemon-michael-rivera-unsplash.jpg?w=400&format=webp&quality=75&imagetools';
 
   export let data: PageData;
 </script>
