@@ -2,12 +2,31 @@
   import PokemonPreview from '$lib/components/pokemon/PokemonPreview.svelte';
   import PokemonPreviewSkeleton from '$lib/components/pokemon/PokemonPreviewSkeleton.svelte';
   import type { PageData } from './$types';
+  // @ts-ignore
+  import pokeImage from '$lib/assets/pokemon-michael-rivera-unsplash.jpg?w=400&format=webp&quality=75';
 
   export let data: PageData;
 </script>
 
 <h2 class="h4">Welcome to Pokeland</h2>
 <p><a class="link" href="/pokemon">Check out all the pokemons!</a></p>
+
+<figure class="my-4">
+  <img alt="Pikachu and Squirtle Pokemon toys in the grass" src={pokeImage} />
+  <figcaption>
+    <small>
+      Photo by <a
+        href="https://unsplash.com/@gojomike?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+        >Michael Rivera</a
+      >
+      on
+      <a
+        href="https://unsplash.com/photos/DypO_XgAE4Y?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText"
+        >Unsplash</a
+      >
+    </small>
+  </figcaption>
+</figure>
 
 {#if data.session?.user}
   <h2 class="h2 mt-4">My favorite pokemons</h2>

@@ -19,3 +19,5 @@
 - api route for /pokemon/favorites
 - static generated about page with some JS to update the auth state
 - tailwind styles
+- svg icon in header
+- an image with vite imagetools on the homepage

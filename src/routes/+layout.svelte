@@ -4,6 +4,7 @@
   import { signIn, signOut } from '@auth/sveltekit/client';
   import { onMount } from 'svelte';
   import '../app.css';
+  import IconPokeball from '$lib/components/icons/IconPokeball.svelte';
 
   let altSession: typeof $page.data.session;
   onMount(async () => {
@@ -46,7 +47,7 @@
 </svelte:head>
 
 <header class="border-gray-800 border-b-2 mb-2 pb-2">
-  <h1 class="h1"><a href="/">Pokeland</a></h1>
+  <h1 class="h1"><a href="/"><IconPokeball style="width: 40px; display: inline" /> Pokeland</a></h1>
   <nav>
     <a class="link" href="/pokemon">Pokemon</a>
     <a class="link" href="/about">About</a>
@@ -71,6 +72,16 @@
 </header>
 
 <slot />
+
+<footer class="border-gray-800 border-t-2 mt-8 pt-2">
+  <small
+    >Pokeball icon by Curve from <a
+      href="https://thenounproject.com/browse/icons/term/pokeball/"
+      target="_blank"
+      title="Pokeball Icons">Noun Project</a
+    > (CC BY 3.0)</small
+  >
+</footer>
 
 <style>
   header {
